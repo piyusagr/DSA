@@ -1,38 +1,559 @@
-//store n employee’s data such as employee name, gender,designation, department, basic pay. Calculate the gross pay of each employees 
+//SINGLE LINKED LIST
+//header file
 #include<stdio.h>
-struct employee
-{
-    char name[50],gender[10],des[80],dept[100];
-    float basic;
+#include<stdbool.h>
+#include<malloc.h>
+#include<conio.h>
+//node
+struct node{
+    int data;
+    struct node *next;
 };
-int main()
+struct node *start=NULL;
+struct node *ptr, *newnode;
+int num;
+//FUNCTION PROTOTYPE
+void  createSLL();
+void  displaySLL();
+void linkedempty();
+void insertbeginSLL();
+int delnodebeginSLL();
+void insertendSLL();
+void delnodeendSLL();
+int counttotalelem();
+void countoddeven();
+bool isprime(int);
+void countprime();
+int reverse();
+void searchnode();
+void sortinasc();
+void sortindesc();
+void swapairwise(struct node *,struct node *);
+void swap();
+void insertmiddleLL();
+void delmiddle();
+void middlenode();
+void segregate();
+void segregatenode();
+//void rotate();
+//main body
+int main() {
+    int option;
+    do
+    {clrscr();
+    printf("\n\t\t\t*******************************************\n");
+    printf("\t\t\t*************  MAIN MENU BAR  *************\n");
+    printf("\t\t\t*******************************************\n");
+    printf("\t\t1.  CREATE LINKED LIST\n");
+    printf("\t\t2.  DISPLAY LINKED LIST\n");
+    printf("\t\t3.  LIST ENPTY OR NOT\n");
+    printf("\t\t4.  INSERT LINKED LIST AT BEDINING\n");
+    printf("\t\t5.  DELETE LINKED LIST AT BEGIN\n");
+    printf("\t\t6.  INSERT LINKED LIST AT END\n");
+    printf("\t\t7.  DELETE LAST NODE FROM LL\n");
+    printf("\t\t8.  COUNT TOTAL NO OF ELEMENT IN SLL\n");
+    printf("\t\t9.  COUNT TOTAL EVEN NUMBER AND ODD NUMBER PRESENT IN LL\n");
+    printf("\t\t10. COUNT TOTAL NODE OF PRIME DATA\n");
+    printf("\t\t11. PALLINDROME OR NOT \n");
+    printf("\t\t12. SEARCH NODE\n");
+    printf("\t\t13. SORT NODE IN ASCENDING ORDER\n");
+    printf("\t\t14. SORT NODE IN DESCENDING ORDER\n");
+    printf("\t\t15. SWAP TWO NODES\n");
+    printf("\t\t16. INSERT AT THE MIDDLE\n");
+    printf("\t\t17. DELETE AT THE MIDDLE\n");
+    printf("\t\t18. FIND THE MIDDLE NODE\n");
+    printf("\t\t19. SEGREGATE ODD OR EVEN DATA\n");
+    printf("\t\t20. SEGREGATE EVEN AND ODD NODES\n");
+    printf("\t\t21. ROTATE COUNTER CLOCKWISE\n");
+    printf("\t\t22. EXIT\n");
+    printf("\n\t\t\tenter the option: ");
+    scanf("%d",&option);
+        switch(option){
+            
+            case 1:{
+            printf("enter the  -1 to stop the liked list\n");
+            createSLL();
+            }
+            break;
+            case 2:
+             {   printf("display the linked list\n");
+                displaySLL();
+                break;
+             }
+            case 3:
+                 linkedempty();
+                 break; 
+            case 4:
+              {  insertbeginSLL();
+                printf("\ndisplay thr inserted linked list at begin\n");
+                displaySLL();
+                break;
+              }
+            case 5:
+               { delnodebeginSLL();
+                printf("\ndisplay deleted linked list at first\n");
+                displaySLL();
+                break;
+               }
+            case 6:
+                {insertendSLL();
+                printf("\ndisplay inserted linked list at end\n");
+                displaySLL();
+                break;}
+            case 7:
+                 delnodeendSLL();
+                 printf("\ndisplay deleted node at end\n");
+                 displaySLL();
+                 break;
+            case 8:
+                 printf("total node is %d\n",counttotalelem());   
+                 break;
+            case 9:
+                countoddeven();
+                break;
+            case 10:
+                countprime();
+                break;
+            case 11:
+                if(reverse())
+                    printf("\nThe linked list is pallindrome\n");
+                else
+                    printf("\nthe linked list is not pallindrome\n ");
+                break;
+            case 12:
+                searchnode();
+                break;
+            case 13:
+                sortinasc();
+                printf("after sorting the node\n");
+                displaySLL();
+                break;
+            case 14:
+                sortindesc();
+                printf("after sorting the node\n");
+                displaySLL();
+                break;
+            case 15:
+                swap();
+                printf("after swaping 2 nodes\n");
+                displaySLL();
+                break;
+            case 16:
+                insertmiddleLL();
+                printf("after inserting node at middle:\n");
+                displaySLL();
+                break;
+            case 17:
+                delmiddle();
+                printf("after deleting node at middle:\n");
+                displaySLL();
+                break;
+            case 18:
+                middlenode();
+                break;
+            case 19:
+              printf("after segregating even and odd: \n");
+                segregate();
+                break;
+            case 20:
+                printf("after segregating even and odd node: \n");
+                segregatenode();
+                break;
+           // case 21:
+             //   rotate();
+               // break;
+            case 22:
+                 exit(0);
+        }
+    } while(option<23);
+    return 0;
+}
+// create linked list
+void createSLL()
 {
-    int n,i;
-    printf("Enter the number of employees: ");
-    scanf("%d",&n);
-    struct employee emp[n];
-    for(i=0;i<n;i++)
-	{
-        printf("Enter the Name, Gender, Designation, Department, Basic Pay of employee %d\n",i+1);
-        getchar(); 
-        gets(emp[i].name);
-        gets(emp[i].gender);
-        gets(emp[i].des);
-        gets(emp[i].dept);
-        scanf("%f",&emp[i].basic);
+   // printf("enter the  -1 to stop the liked list\n");
+    printf("enter the data: ");
+    scanf("%d",&num);
+    while(num!=-1)
+    {
+        newnode=(struct node *)malloc(sizeof(struct node));
+        newnode->data=num;
+        newnode->next=NULL;
+        if(start==NULL)
+        {
+            start=newnode;
+            ptr=newnode;
+        }
+        else{
+            ptr->next=newnode;
+            ptr=newnode;
+        }
+         printf("enter the data:");
+            scanf("%d",&num);
     }
-    for(i=0;i<n;i++)
-	{
-		float hra , da;
-        hra=0.25*emp[i].basic;
-        da=0.75*emp[i].basic;
-        emp[i].basic=emp[i].basic+hra+da;     
-        printf("Information of employee %d:\n\n",i+1);
-        printf("Name: %s \n",emp[i].name);     
-        printf("Gender: %s\n",emp[i].gender);     
-        printf("Designation: %s\n",emp[i].des);   
-        printf("Department: %s\n",emp[i].dept);
-    	printf("Gross salary pay : %.2f\n",emp[i].basic);
-        printf("\n");   
+}
+//display linked list
+void displaySLL()
+{
+     ptr=start;
+     while(ptr!=NULL){
+         printf("%d\t",ptr->data);
+         ptr=ptr->next;
+     }
+}
+//list empty or not
+void linkedempty()
+{
+    ptr=start;
+    if(ptr==NULL)
+    {
+        printf("LINKED LIST IS EMPTY\n");
     }
+    else{
+        printf("LINKED LIST IS NOT EMPTY\n");
+    }
+}
+//insertion at begining
+void insertbeginSLL()
+{
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("\nenter the  data to be inserted: ");
+    scanf("%d",&newnode->data);
+    newnode->next=start;
+    start=newnode;
+    printf("node added to the first\n");
+}
+//deleting at first
+int delnodebeginSLL()
+{
+      ptr=start;
+    start=ptr->next;
+    free(ptr);
+    printf("\nnode is deleted from the first\n");
+}
+//inserting at end
+void insertendSLL()
+{ 
+    newnode  =(struct node *)malloc(sizeof(struct node));
+    ptr=start;
+    printf("\nenter the data to be inserted at end: ");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    while(ptr->next!=NULL)
+    {
+       ptr=ptr->next;
+    }
+     ptr->next=newnode;
+     printf("node is inserted at thw end\n");
+}
+//deleting at end;
+void delnodeendSLL()
+{
+     struct node *secondlast;
+     ptr=start;
+     secondlast=start;
+     while(ptr->next!=NULL)
+     { secondlast=ptr;
+        ptr=ptr->next;
+     }
+     if(ptr==start)
+     {
+        start=NULL;
+     }
+     else
+     {
+         secondlast->next=NULL;
+     }
+     free(ptr);
+}
+
+//count total element
+int  counttotalelem()
+{
+    int n=0;
+    ptr=start;
+    while(ptr!=NULL)
+       {n++;
+       ptr=ptr->next;}
+   /* if(ptr->next==NULL)
+    {
+        n++;
+    }*/return n;
+    //printf("total element %d\n",n);
+}
+//count odd or even number
+void countoddeven()
+{
+    int o=0,e=0;
+    ptr=start;
+    while(ptr->next!=NULL)
+        {   
+            if(ptr->data%2==0)
+            {
+                e++;
+            }
+            else{
+                o++;
+            }
+            ptr=ptr->next;
+        }
+    if(ptr->next==NULL)
+        {
+             if(ptr->data%2==0)
+            {
+                e++;
+            }
+            else{
+                o++;
+            }
+        }
+    printf("count the total no of even digit present %d\n",e);
+    printf("count the total no of odd digit present %d\n ",o);
+}
+//check prime or not
+bool isprime(int n){
+    if(n==0||n==1)
+    {
+        return false;
+    } 
+    else{   
+    for(int i=2;i<n;i++)
+    {
+        if(n%i==0)
+        return false;
+    }
+    return true;}
+} 
+//count prime data in node of SLL
+void countprime()
+{
+    int p=0;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        if(isprime(ptr->data)==true)
+        p+=1;
+        ptr=ptr->next;
+    }
+    if(ptr->next==NULL)
+    {
+        if(isprime(ptr->data)==true)
+        p+=1;
+    }
+    printf("total node of prime data is %d\n",p);
+}
+//reverse linked list
+int reverse()
+{
+    struct node *prev, *a, *rev;
+    prev = a = NULL;
+    ptr = start;
+    if (ptr == NULL)
+        printf("List is empty\n");
+    else
+    {
+        while (ptr != NULL)
+        {
+            // reversing of points
+            a = ptr->next;
+            ptr->next = prev;
+            prev = ptr;
+            ptr = a;
+        }
+        rev=prev;
+        while (rev != NULL && start != NULL)
+        {
+            if(start->data == rev->data)
+            {
+                rev = rev->next;
+                start = start->next;
+            }
+            else
+                return 0;       
+        }return 1;
+    }
+    printf("\n");
+}
+//search data in  nodes
+void searchnode()
+{ int search=0;
+   printf("enter the data to be search: ");
+   scanf("%d",&num);
+   ptr=start;
+   while(ptr!=NULL)
+   {
+       if(ptr->data==num)
+       {
+           search= 1;
+       }
+       ptr=ptr->next;
+   }   
+   if(search==1)
+   {
+       printf("NODE FOUND\n");
+   }
+   else
+       printf("NODE NOT FOUND\n");
+}
+//sort  node in ascending order
+void sortinasc()
+{   ptr=start;
+    int s;
+    struct node *a,*b;
+    a=ptr;
+    while(a->next!=NULL)
+    {   b=a->next;
+        while(b!=NULL)
+        {
+            if(a->data>b->data)
+            {
+                s=a->data;
+                a->data=b->data;
+                b->data=s;
+            }
+            b=b->next;
+        }
+        a=a->next;
+    }
+
+}
+//sort node in descending order
+void sortindesc()
+{   ptr=start;
+    int s;
+    struct node *b;
+    while(ptr->next!=NULL)
+    {   b=ptr->next;
+        while(b!=NULL)
+        {
+            if(ptr->data<b->data)
+            {
+                s=ptr->data;
+                ptr->data=b->data;
+                b->data=s;
+            }
+            b=b->next;
+        }
+        ptr=ptr->next;
+    }
+}
+//swap node
+void swap()
+{
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        swapairwise(ptr,ptr->next);
+        ptr=ptr->next->next;
+    }
+}
+void swapairwise(struct node  *a,struct node *b)
+{
+    int temp=a->data;
+    a->data=b->data;
+    b->data=temp;   
+}
+//insert node at middle
+void insertmiddleLL()
+{  int i=1;
+    printf("enter the position of node: ");
+    scanf("%d",&num);
+    if(num>counttotalelem())
+    {
+        printf("!!!!!!!invalid loaction!!!!!!!!!!\n");
+    }    
+    else{
+        newnode=(struct node *)malloc(sizeof(struct node));
+        ptr=start;
+        printf("enter the element to be inserted: ");
+        scanf("%d",&newnode->data);
+        while(i<num-1)
+        {
+            ptr=ptr->next;
+            i++;
+        }
+        newnode->next=ptr->next;
+        ptr->next=newnode;
+    }
+}
+//delete node from linked list
+void delmiddle()
+{
+     int i=1;
+    printf("enter the position of node: ");
+    scanf("%d",&num);
+    if(num>counttotalelem())
+    {
+        printf("!!!!!!!invalid loaction!!!!!!!!!!\n");
+    }    
+    else if(num==1){
+        delnodebeginSLL();   
+    }
+    else if(num==counttotalelem())
+        delnodeendSLL();
+    else{
+        ptr=start;
+        while(i<num-1)
+        {
+            ptr=ptr->next;
+            i++;
+        }
+        newnode=ptr->next;
+        ptr->next=newnode->next;
+        newnode->next=NULL;
+        free(newnode);
+    }
+}
+//find middle of the linked list
+void middlenode(){
+    ptr=newnode=start;
+    while(newnode!=NULL&&newnode->next!=NULL)
+    {
+        ptr=ptr->next;
+        newnode=newnode->next->next;
+    }
+    printf("the middle element is %d\n",ptr->data);
+}
+//segregate odd and even
+void segregate()
+{  struct node *even,*odd;
+    ptr=start;
+    newnode=start;
+    while(ptr!=NULL)
+    {   if(ptr->data%2==0)
+            {
+               printf("%d\t", ptr->data);
+            }
+            ptr=ptr->next;
+    } 
+    while(newnode!=NULL)
+    {   if(newnode->data%2!=0)
+            {
+               printf("%d\t", newnode->data);
+            }
+            newnode=newnode->next;
+    } 
+}
+//segregate even and odd node
+void segregatenode()
+{
+    struct node *a=start;
+    newnode=start;
+    while(a!=NULL)
+    { for(int i=0;i<counttotalelem();i++){   
+        if(i%2==0)
+        {
+            printf("%d\t",a->data);
+        }a=a->next;
+        }
+        
+    }
+    while(newnode!=NULL)
+    {   for(int i=0;i<counttotalelem();i++){
+           if(i%2!=0)
+            {
+                printf("%d\t",newnode->data);
+            }newnode=newnode->next;
+        }  
+    } 
 }
